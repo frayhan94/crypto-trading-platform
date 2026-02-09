@@ -3,8 +3,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
-import { riskRoutes } from './routes/risk.js';
-import { healthRoutes } from './routes/health.js';
+import { planRoutes } from './routes/plans.js';
 
 const app = new Hono();
 
@@ -18,8 +17,7 @@ app.use('*', cors({
 }));
 
 // Routes
-app.route('/api/health', healthRoutes);
-app.route('/api/risk', riskRoutes);
+app.route('/api/plans', planRoutes);
 
 // Root endpoint
 app.get('/', (c) => {
@@ -28,8 +26,7 @@ app.get('/', (c) => {
     version: '1.0.0',
     status: 'running',
     endpoints: {
-      health: '/api/health',
-      risk: '/api/risk',
+      plans: '/api/plans',
     }
   });
 });
