@@ -1,4 +1,37 @@
-import type { TradingParams, RiskCalculations, SimulationResult, RiskLevel } from '@repo/types';
+// Local type definitions for Vercel deployment
+interface TradingParams {
+  entryPrice: number;
+  stopLoss: number;
+  takeProfit: number;
+  balance: number;
+  accountBalance: number;
+  leverage: number;
+  riskPercentage: number;
+  positionType: 'long' | 'short';
+}
+
+interface RiskCalculations {
+  liquidationPrice: number;
+  recommendedPositionSize: number;
+  positionSize?: number;
+  marginRequired: number;
+  orderValue?: number;
+  potentialProfit: number;
+  potentialLoss: number;
+  riskRewardRatio: number;
+  maxLossPercentage: number;
+  distanceToLiquidation: number;
+}
+
+interface SimulationResult {
+  scenario: string;
+  resultBalance: number;
+  pnl: number;
+  pnlPercentage: number;
+  description: string;
+}
+
+type RiskLevel = 'low' | 'medium' | 'high' | 'extreme';
 
 export class RiskService {
   static calculateLiquidationPrice(
