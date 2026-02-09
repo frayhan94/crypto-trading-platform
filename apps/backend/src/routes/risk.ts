@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { RiskService } from '../services/risk.service';
+import { RiskService } from '../services/risk.service.js';
 
 export const riskRoutes = new Hono();
 

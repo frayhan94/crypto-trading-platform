@@ -32,12 +32,6 @@ importers:
       '@hono/zod-validator':
         specifier: ^0.2.0
         version: 0.2.2(hono@4.11.9)(zod@3.25.76)
-      '@repo/types':
-        specifier: workspace:*
-        version: link:../../packages/types
-      '@repo/utils':
-        specifier: workspace:*
-        version: link:../../packages/utils
       hono:
         specifier: ^4.0.8
         version: 4.11.9

@@ -3,8 +3,8 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
-import { riskRoutes } from './routes/risk';
-import { healthRoutes } from './routes/health';
+import { riskRoutes } from './routes/risk.js';
+import { healthRoutes } from './routes/health.js';
 
 const app = new Hono();
 

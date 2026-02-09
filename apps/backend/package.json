@@ -15,9 +15,7 @@
     "hono": "^4.0.8",
     "@hono/node-server": "^1.8.2",
     "@hono/zod-validator": "^0.2.0",
-    "zod": "^3.22.4",
-    "@repo/types": "workspace:*",
-    "@repo/utils": "workspace:*"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
