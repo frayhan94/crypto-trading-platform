@@ -1,0 +1,35 @@
+{
+  "name": "crypto-trading-platform",
+  "version": "1.0.0",
+  "description": "A comprehensive cryptocurrency trading platform with risk management, wallet tracking, and analytics",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --parallel run dev",
+    "build": "pnpm --recursive run build",
+    "start": "pnpm --parallel run start",
+    "lint": "pnpm --recursive run lint",
+    "test": "pnpm --recursive run test",
+    "clean": "pnpm --recursive run clean && rm -rf node_modules",
+    "type-check": "pnpm --recursive run type-check",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "build:frontend": "pnpm --filter frontend build",
+    "build:backend": "pnpm --filter backend build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "typescript": "^5.3.3",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "turbo": "^1.12.4"
+  },
+  "packageManager": "pnpm@8.15.4",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
