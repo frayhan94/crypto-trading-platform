@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TradingPlan {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  description String?
+  status      PlanStatus @default(DRAFT)
+  
+  // Trading Parameters
+  entryPrice     Float
+  stopLoss       Float
+  takeProfit     Float
+  leverage       Int
+  positionType   PositionType
+  riskPercentage Float
+  accountBalance Float
+  
+  // Calculated Risk Metrics
+  liquidationPrice   Float
+  positionSize       Float
+  marginRequired     Float
+  orderValue         Float
+  potentialProfit    Float
+  potentialLoss      Float
+  riskRewardRatio    Float
+  maxLossPercentage  Float
+  riskLevel          RiskLevel
+  
+  // Recommendations stored as JSON
+  recommendations String[]
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  executedAt DateTime?
+  
+  @@index([userId])
+  @@index([status])
+}
+
+enum PositionType {
+  LONG
+  SHORT
+}
+
+enum PlanStatus {
+  DRAFT
+  ACTIVE
+  EXECUTED
+  CANCELLED
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  EXTREME
+}

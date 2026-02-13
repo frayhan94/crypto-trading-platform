@@ -3,7 +3,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
-import { planRoutes } from './routes/plans.js';
+import { v1Routes } from './routes/v1/index.js';
 
 const app = new Hono();
 
@@ -16,8 +16,8 @@ app.use('*', cors({
   allowHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Routes
-app.route('/api/plans', planRoutes);
+// Versioned Routes
+app.route('/api/v1', v1Routes);
 
 // Root endpoint
 app.get('/', (c) => {
@@ -25,8 +25,11 @@ app.get('/', (c) => {
     name: 'Crypto Trading Platform API',
     version: '1.0.0',
     status: 'running',
+    versions: {
+      v1: '/api/v1',
+    },
     endpoints: {
-      plans: '/api/plans',
+      'v1-plans': '/api/v1/plans',
     }
   });
 });
