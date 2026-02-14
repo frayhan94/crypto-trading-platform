@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { TradingPlan, PlanStatus } from '../../domain/models/TradingPlan';
 import { TradingPlanService } from '../services/TradingPlanService';
-import { CreateTradingPlanUseCase } from '../use-cases/CreateTradingPlan';
+import { CreateTradingPlanUseCase, CreateTradingPlanRequest } from '../use-cases/CreateTradingPlan';
 import { TradingPlanRepository } from '../../infrastructure/api/TradingPlanRepository';
 
 interface TradingPlanState {
@@ -14,7 +14,7 @@ interface TradingPlanState {
   // Actions
   fetchPlans: (userId: string) => Promise<void>;
   fetchPlan: (id: string) => Promise<void>;
-  createPlan: (data: any) => Promise<{ success: boolean; error?: string }>;
+  createPlan: (data: CreateTradingPlanRequest) => Promise<{ success: boolean; error?: string }>;
   updatePlanStatus: (id: string, status: PlanStatus) => Promise<void>;
   deletePlan: (id: string) => Promise<void>;
   clearError: () => void;
@@ -74,7 +74,7 @@ export const useTradingPlanStore = create<TradingPlanState>()(
           }
         },
 
-        createPlan: async (data: any) => {
+        createPlan: async (data: CreateTradingPlanRequest) => {
           set({ isLoading: true, error: null });
           
           try {
