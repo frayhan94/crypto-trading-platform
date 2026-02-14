@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { TradingParameters, RiskAnalysis } from '../../domain/models/TradingPlan';
+import { TradingParameters } from '../../domain/models/TradingPlan';
+import { CreateTradingPlanRequest } from '../../application/use-cases/CreateTradingPlan';
 import { useAnalyzeRisk } from '../hooks/useAnalyzeRisk';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../components/auth/AuthProvider';
 import { useTradingPlanStore } from '../../application/stores/TradingPlanStore';
 import TradingInputForm from '../components/TradingInputForm';
 import RiskDashboard from '../components/RiskDashboard';
@@ -19,7 +20,7 @@ export default function RiskAnalysisPage() {
     await analyzeRisk(params);
   }, [analyzeRisk]);
 
-  const handleSavePlan = useCallback(async (data: any) => {
+  const handleSavePlan = useCallback(async (data: Omit<CreateTradingPlanRequest, 'userId'>) => {
     if (!user) return;
     
     const result = await createPlan({
