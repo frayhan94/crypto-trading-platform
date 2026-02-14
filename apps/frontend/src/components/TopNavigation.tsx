@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAuth } from '../presentation/hooks/useAuth';
+import { useAuth } from './auth/AuthProvider';
 
 export default function TopNavigation() {
   const pathname = usePathname();
