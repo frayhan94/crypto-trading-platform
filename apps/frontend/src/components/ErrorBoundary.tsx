@@ -5,7 +5,7 @@ import React, { Component, ErrorInfo, ReactNode } from 'react';
 // Google Analytics types
 declare global {
   interface Window {
-    gtag?: (command: string, action: string, options?: Record<string, any>) => void;
+    gtag?: (command: string, action: string, options?: Record<string, string | number | boolean>) => void;
   }
 }
 
