@@ -12,6 +12,7 @@ export interface AuthState {
 
 export class SupabaseAuthAdapter {
   private static instance: SupabaseAuthAdapter;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private client: any;
   private listeners: Set<(state: AuthState) => void> = new Set();
 
@@ -33,20 +34,21 @@ export class SupabaseAuthAdapter {
     return {
       auth: {
         getUser: async () => ({ data: { user: null }, error: null }),
-        signInWithPassword: async (email: string, password: string) => {
+        signInWithPassword: async (email: string, _password: string) => {
           // Mock sign in
           return { data: { user: { id: 'mock-id', email } }, error: null };
         },
-        signUp: async (email: string, password: string) => {
+        signUp: async (email: string, _password: string) => {
           // Mock sign up
           return { data: { user: { id: 'mock-id', email } }, error: null };
         },
-        signInWithOAuth: async (provider: string) => {
+        signInWithOAuth: async (_provider: string) => {
           // Mock OAuth
           return { data: { user: { id: 'mock-id', email: 'mock@example.com' } }, error: null };
         },
         signOut: async () => ({ error: null }),
-        onAuthStateChange: (callback: (event: string, session: any) => void) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onAuthStateChange: (_callback: (event: string, session: any) => void) => {
           // Mock auth state change listener
           return { data: { subscription: { unsubscribe: () => {} } } };
         }
@@ -160,6 +162,7 @@ export class SupabaseAuthAdapter {
     this.listeners.add(callback);
     
     // Set up Supabase auth state change listener
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data } = this.client.auth.onAuthStateChange(async (event: string, session: any) => {
       const user = session?.user ? {
         id: session.user.id,
