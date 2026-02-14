@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { planRoutes } from './plans';
+import { planRoutes } from './plans.js';
 
 const v1Routes = new Hono();
 
