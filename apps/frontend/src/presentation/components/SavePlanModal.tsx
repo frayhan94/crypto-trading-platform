@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { RiskAnalysis } from '../../domain/models/TradingPlan';
 import { TradingValidation } from '../../domain/rules/TradingValidation';
+import { CreateTradingPlanRequest } from '../../application/use-cases/CreateTradingPlan';
 
 interface SavePlanModalProps {
   isOpen: boolean;
   onClose: () => void;
   analysis: RiskAnalysis;
   userId: string;
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data: Omit<CreateTradingPlanRequest, 'userId'>) => void;
 }
 
 export default function SavePlanModal({ 

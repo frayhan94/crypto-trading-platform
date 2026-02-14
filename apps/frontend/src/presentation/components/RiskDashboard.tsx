@@ -2,7 +2,6 @@
 
 import { RiskAnalysis } from '../../domain/models/TradingPlan';
 import { RiskCalculation } from '../../domain/utils/RiskCalculation';
-import { DateUtils } from '../../domain/utils/DateUtils';
 
 interface RiskDashboardProps {
   analysis: RiskAnalysis | null;
@@ -20,7 +19,7 @@ export default function RiskDashboard({ analysis }: RiskDashboardProps) {
     );
   }
 
-  const { parameters, calculations, simulations, riskLevel, recommendations } = analysis;
+  const { calculations, simulations, riskLevel, recommendations } = analysis;
 
   return (
     <div className="bg-white border border-gray-300 p-8">
