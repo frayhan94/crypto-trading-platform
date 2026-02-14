@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { User, AuthState } from '../../infrastructure/auth/SupabaseAuthAdapter';
+import { AuthState } from '../../infrastructure/auth/SupabaseAuthAdapter';
 import { SupabaseAuthAdapter } from '../../infrastructure/auth/SupabaseAuthAdapter';
 
 export const useAuth = () => {
