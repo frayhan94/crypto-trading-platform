@@ -2,6 +2,13 @@
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 
+// Google Analytics types
+declare global {
+  interface Window {
+    gtag?: (command: string, action: string, options?: Record<string, any>) => void;
+  }
+}
+
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
