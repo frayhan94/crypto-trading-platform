@@ -47,14 +47,14 @@ export class HttpClient {
     return this.request<T>(endpoint, { method: 'GET' });
   }
 
-  async post<T>(endpoint: string, body: any): Promise<ApiResponse<T>> {
+  async post<T>(endpoint: string, body: unknown): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: JSON.stringify(body),
     });
   }
 
-  async patch<T>(endpoint: string, body: any): Promise<ApiResponse<T>> {
+  async patch<T>(endpoint: string, body: unknown): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       method: 'PATCH',
       body: JSON.stringify(body),

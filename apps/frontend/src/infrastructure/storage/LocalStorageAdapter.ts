@@ -3,7 +3,7 @@ export class LocalStorageAdapter {
     return typeof window !== 'undefined';
   }
 
-  static setItem(key: string, value: any): void {
+  static setItem(key: string, value: unknown): void {
     if (!this.isClient()) return;
     
     try {
