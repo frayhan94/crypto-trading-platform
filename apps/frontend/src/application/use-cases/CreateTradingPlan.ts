@@ -1,4 +1,4 @@
-import { TradingPlan, PlanStatus } from '../../domain/models/TradingPlan';
+import { PlanStatus } from '../../domain/models/TradingPlan';
 import { TradingValidation } from '../../domain/rules/TradingValidation';
 import { TradingPlanRepository } from '../../infrastructure/api/TradingPlanRepository';
 
