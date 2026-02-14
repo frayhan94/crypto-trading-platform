@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { TradingPlan, PlanStatus } from '../../domain/models/TradingPlan';
-import { useAuth } from '../hooks/useAuth';
+import { PlanStatus, RiskLevel } from '../../domain/models/TradingPlan';
+import { useAuth } from '../../components/auth/AuthProvider';
 import { useTradingPlanStore } from '../../application/stores/TradingPlanStore';
 import { DateUtils } from '../../domain/utils/DateUtils';
 import { RiskCalculation } from '../../domain/utils/RiskCalculation';
@@ -51,7 +51,7 @@ export default function TradingPlansPage() {
   };
 
   const getRiskLevelColor = (riskLevel: string) => {
-    return RiskCalculation.getRiskLevelColor(riskLevel as any);
+    return RiskCalculation.getRiskLevelColor(riskLevel as RiskLevel);
   };
 
   if (!user) {
