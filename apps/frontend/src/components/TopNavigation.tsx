@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAuth } from './auth/AuthProvider';
+import { useAuth } from '../presentation/hooks/useAuth';
 
 export default function TopNavigation() {
   const pathname = usePathname();
@@ -52,7 +52,20 @@ export default function TopNavigation() {
                 <span className="font-black tracking-wider text-sm">BACK TO DASHBOARD</span>
               </Link>
             ) : (
-              <span className="font-black tracking-wider text-sm">CRYPTO TRADING PLATFORM</span>
+              <div className="flex items-center space-x-6">
+                <Link 
+                  href="/risk"
+                  className="font-black tracking-wider text-sm text-black hover:text-gray-600"
+                >
+                  ANALYZE RISK
+                </Link>
+                <Link 
+                  href="/plans"
+                  className="font-black tracking-wider text-sm text-black hover:text-gray-600"
+                >
+                  MY PLANS
+                </Link>
+              </div>
             )}
           </div>
           
