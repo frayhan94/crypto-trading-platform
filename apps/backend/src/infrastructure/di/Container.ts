@@ -1,5 +1,5 @@
-import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository';
-import { PrismaTradingPlanRepository } from '../repositories/PrismaTradingPlanRepository';
+import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository.js';
+import { PrismaTradingPlanRepository } from '../repositories/PrismaTradingPlanRepository.js';
 
 export class DIContainer {
   private static repositories: Map<string, any> = new Map();

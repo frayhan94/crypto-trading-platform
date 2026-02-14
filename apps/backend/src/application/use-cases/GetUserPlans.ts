@@ -1,5 +1,5 @@
-import { TradingPlan } from '../../domain/entities/TradingPlan';
-import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository';
+import { TradingPlan } from '../../domain/entities/TradingPlan.js';
+import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository.js';
 
 export interface GetUserPlansResponse {
   success: boolean;

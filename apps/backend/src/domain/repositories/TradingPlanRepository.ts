@@ -1,4 +1,4 @@
-import { TradingPlan, PlanStatus } from '../entities/TradingPlan';
+import { TradingPlan, PlanStatus } from '../entities/TradingPlan.js';
 
 export interface TradingPlanRepository {
   create(plan: TradingPlan): Promise<TradingPlan>;

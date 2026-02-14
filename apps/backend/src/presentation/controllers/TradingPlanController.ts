@@ -1,11 +1,11 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
-import { CreateTradingPlanUseCase } from '../../application/use-cases/CreateTradingPlan';
-import { GetUserPlansUseCase } from '../../application/use-cases/GetUserPlans';
-import { UpdatePlanStatusUseCase } from '../../application/use-cases/UpdatePlanStatus';
-import { PrismaTradingPlanRepository } from '../../infrastructure/repositories/PrismaTradingPlanRepository';
-import { PositionType, PlanStatus, RiskLevel } from '../../domain/entities/TradingPlan';
+import { CreateTradingPlanUseCase } from '../../application/use-cases/CreateTradingPlan.js';
+import { GetUserPlansUseCase } from '../../application/use-cases/GetUserPlans.js';
+import { UpdatePlanStatusUseCase } from '../../application/use-cases/UpdatePlanStatus.js';
+import { PrismaTradingPlanRepository } from '../../infrastructure/repositories/PrismaTradingPlanRepository.js';
+import { PositionType, PlanStatus, RiskLevel } from '../../domain/entities/TradingPlan.js';
 
 export class TradingPlanController {
   private createPlanUseCase: CreateTradingPlanUseCase;

@@ -1,4 +1,4 @@
-import { PlanStatus } from '../../domain/entities/TradingPlan';
+import { PlanStatus } from '../../domain/entities/TradingPlan.js';
 
 export interface UpdatePlanStatusDTO {
   status: PlanStatus;

@@ -1,4 +1,4 @@
-import { PositionType, RiskLevel } from '../../domain/entities/TradingPlan';
+import { PositionType, RiskLevel } from '../../domain/entities/TradingPlan.js';
 
 export interface CreateTradingPlanDTO {
   userId: string;

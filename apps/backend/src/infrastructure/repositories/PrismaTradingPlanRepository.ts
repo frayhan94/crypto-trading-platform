@@ -1,6 +1,6 @@
-import { TradingPlan, PlanStatus, PositionType, RiskLevel } from '../../domain/entities/TradingPlan';
-import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository';
-import prisma from '../lib/prisma';
+import { TradingPlan, PlanStatus, PositionType, RiskLevel } from '../../domain/entities/TradingPlan.js';
+import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository.js';
+import prisma from '../lib/prisma.js';
 
 export class PrismaTradingPlanRepository implements TradingPlanRepository {
   async create(plan: TradingPlan): Promise<TradingPlan> {

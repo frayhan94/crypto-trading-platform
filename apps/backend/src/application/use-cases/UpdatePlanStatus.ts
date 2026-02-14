@@ -1,6 +1,6 @@
-import { TradingPlan, PlanStatus } from '../../domain/entities/TradingPlan';
-import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository';
-import { UpdatePlanStatusDTO, UpdatePlanStatusResponse } from '../dtos/UpdatePlanStatusDTO';
+import { TradingPlan, PlanStatus } from '../../domain/entities/TradingPlan.js';
+import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository.js';
+import { UpdatePlanStatusDTO, UpdatePlanStatusResponse } from '../dtos/UpdatePlanStatusDTO.js';
 
 export class UpdatePlanStatusUseCase {
   constructor(private readonly tradingPlanRepository: TradingPlanRepository) {}

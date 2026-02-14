@@ -1,7 +1,7 @@
-import { TradingPlan } from '../../domain/entities/TradingPlan';
-import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository';
-import { RiskCalculationService, TradingParameters } from '../../domain/services/RiskCalculationService';
-import { CreateTradingPlanDTO, CreateTradingPlanResponse } from '../dtos/CreateTradingPlanDTO';
+import { TradingPlan } from '../../domain/entities/TradingPlan.js';
+import { TradingPlanRepository } from '../../domain/repositories/TradingPlanRepository.js';
+import { RiskCalculationService, TradingParameters } from '../../domain/services/RiskCalculationService.js';
+import { CreateTradingPlanDTO, CreateTradingPlanResponse } from '../dtos/CreateTradingPlanDTO.js';
 
 export class CreateTradingPlanUseCase {
   constructor(private readonly tradingPlanRepository: TradingPlanRepository) {}

@@ -1,6 +1,6 @@
-import { Money } from '../value-objects/Money';
-import { Percentage } from '../value-objects/Percentage';
-import { RiskLevel } from '../entities/TradingPlan';
+import { Money } from '../value-objects/Money.js';
+import { Percentage } from '../value-objects/Percentage.js';
+import { RiskLevel } from '../entities/TradingPlan.js';
 
 export interface TradingParameters {
   entryPrice: number;
