@@ -6,6 +6,7 @@ import { GetUserPlansUseCase } from '../../application/use-cases/GetUserPlans.js
 import { UpdatePlanStatusUseCase } from '../../application/use-cases/UpdatePlanStatus.js';
 import { PrismaTradingPlanRepository } from '../../infrastructure/repositories/PrismaTradingPlanRepository.js';
 import { PositionType, PlanStatus, RiskLevel } from '../../domain/entities/TradingPlan.js';
+import { authMiddleware } from '../../middleware/auth.js';
 
 export class TradingPlanController {
   private createPlanUseCase: CreateTradingPlanUseCase;
@@ -21,6 +22,9 @@ export class TradingPlanController {
 
   getRoutes() {
     const routes = new Hono();
+
+    // Apply auth middleware to all routes
+    routes.use('*', authMiddleware);
 
     const createPlanSchema = z.object({
       userId: z.string().min(1, 'User ID is required'),
@@ -52,6 +56,15 @@ export class TradingPlanController {
     // Create a new trading plan
     routes.post('/', zValidator('json', createPlanSchema), async (c) => {
       const data = c.req.valid('json');
+      const authUser = c.get('user');
+
+      // Verify the authenticated user matches the userId in the request
+      if (data.userId !== authUser.id) {
+        return c.json({
+          success: false,
+          error: 'Unauthorized: You can only create plans for your own account',
+        }, 403);
+      }
       
       const result = await this.createPlanUseCase.execute({
         ...data,
@@ -69,6 +82,15 @@ export class TradingPlanController {
     // Get all plans for a user
     routes.get('/user/:userId', async (c) => {
       const userId = c.req.param('userId');
+      const authUser = c.get('user');
+
+      // Verify the authenticated user matches the requested userId
+      if (userId !== authUser.id) {
+        return c.json({
+          success: false,
+          error: 'Unauthorized: You can only view your own plans',
+        }, 403);
+      }
       
       const result = await this.getUserPlansUseCase.execute(userId);
       
@@ -83,6 +105,25 @@ export class TradingPlanController {
     routes.patch('/:id', zValidator('json', updatePlanSchema), async (c) => {
       const id = c.req.param('id');
       const data = c.req.valid('json');
+      const authUser = c.get('user');
+
+      // Verify the plan belongs to the authenticated user
+      const repository = new PrismaTradingPlanRepository();
+      const existingPlan = await repository.findById(id);
+      
+      if (!existingPlan) {
+        return c.json({
+          success: false,
+          error: 'Trading plan not found',
+        }, 404);
+      }
+
+      if (existingPlan.userId !== authUser.id) {
+        return c.json({
+          success: false,
+          error: 'Unauthorized: You can only update your own plans',
+        }, 403);
+      }
       
       const result = await this.updatePlanStatusUseCase.execute(id, {
         status: data.status as PlanStatus,
@@ -98,6 +139,7 @@ export class TradingPlanController {
     // Get a single plan by ID
     routes.get('/:id', async (c) => {
       const id = c.req.param('id');
+      const authUser = c.get('user');
       
       const repository = new PrismaTradingPlanRepository();
       const plan = await repository.findById(id);
@@ -109,6 +151,14 @@ export class TradingPlanController {
         }, 404);
       }
 
+      // Verify the plan belongs to the authenticated user
+      if (plan.userId !== authUser.id) {
+        return c.json({
+          success: false,
+          error: 'Unauthorized: You can only view your own plans',
+        }, 403);
+      }
+
       return c.json({
         success: true,
         data: plan,
@@ -118,9 +168,27 @@ export class TradingPlanController {
     // Delete a plan
     routes.delete('/:id', async (c) => {
       const id = c.req.param('id');
+      const authUser = c.get('user');
       
       try {
         const repository = new PrismaTradingPlanRepository();
+        const existingPlan = await repository.findById(id);
+        
+        if (!existingPlan) {
+          return c.json({
+            success: false,
+            error: 'Trading plan not found',
+          }, 404);
+        }
+
+        // Verify the plan belongs to the authenticated user
+        if (existingPlan.userId !== authUser.id) {
+          return c.json({
+            success: false,
+            error: 'Unauthorized: You can only delete your own plans',
+          }, 403);
+        }
+
         await repository.delete(id);
 
         return c.json({
@@ -139,6 +207,15 @@ export class TradingPlanController {
     routes.get('/user/:userId/status/:status', async (c) => {
       const userId = c.req.param('userId');
       const status = c.req.param('status').toUpperCase();
+      const authUser = c.get('user');
+
+      // Verify the authenticated user matches the requested userId
+      if (userId !== authUser.id) {
+        return c.json({
+          success: false,
+          error: 'Unauthorized: You can only view your own plans',
+        }, 403);
+      }
       
       if (!['DRAFT', 'ACTIVE', 'EXECUTED', 'CANCELLED'].includes(status)) {
         return c.json({
