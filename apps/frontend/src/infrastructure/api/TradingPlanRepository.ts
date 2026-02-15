@@ -1,5 +1,6 @@
 import { TradingPlan, PlanStatus } from '../../domain/models/TradingPlan';
 import { HttpClient, ApiResponse } from './HttpClient';
+import { AuthenticatedHttpClient, getAuthenticatedClient } from './AuthenticatedHttpClient';
 
 export interface CreateTradingPlanRequest {
   userId: string;
@@ -57,7 +58,7 @@ export interface UpdatePlanStatusResponse {
 }
 
 export class TradingPlanRepository {
-  constructor(private readonly httpClient: HttpClient = new HttpClient()) {}
+  constructor(private readonly httpClient: HttpClient | AuthenticatedHttpClient = getAuthenticatedClient()) {}
 
   async create(request: CreateTradingPlanRequest): Promise<CreateTradingPlanResponse> {
     return this.httpClient.post<CreateTradingPlanResponse['data']>('/api/plans', request);
