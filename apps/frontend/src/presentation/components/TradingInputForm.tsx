@@ -152,7 +152,7 @@ export default function TradingInputForm({ onSubmit, isLoading = false }: Tradin
   return (
     <div className="bg-white border border-gray-300 p-8">
       <h2 className="text-2xl font-black tracking-tight mb-8">
-        TRADING <span className="text-gray-500">PARAMETERS</span>
+         <span className="text-gray-500">TRADING PARAMETERS</span>
       </h2>
       <div className="w-16 h-0.5 bg-black mb-8"></div>
 

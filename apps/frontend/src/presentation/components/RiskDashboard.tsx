@@ -11,7 +11,7 @@ export default function RiskDashboard({ analysis }: RiskDashboardProps) {
   if (!analysis) {
     return (
       <div className="bg-white border border-gray-300 p-8">
-        <h2 className="text-2xl font-black tracking-tight mb-6">RISK ANALYSIS RESULTS</h2>
+        <h2 className="text-2xl text-gray-500 tracking-tight mb-6">RISK ANALYSIS RESULTS</h2>
         <div className="text-center py-8">
           <div className="text-gray-500">Complete the form to see risk analysis results</div>
         </div>
@@ -23,35 +23,35 @@ export default function RiskDashboard({ analysis }: RiskDashboardProps) {
 
   return (
     <div className="bg-white border border-gray-300 p-8">
-      <h2 className="text-2xl font-black tracking-tight mb-6">RISK ANALYSIS RESULTS</h2>
+      <h2 className="text-2xl text-gray-500 font-black tracking-tight mb-6">RISK ANALYSIS RESULTS</h2>
       
       {/* Risk Level */}
       <div className="mb-8">
-        <h3 className="text-lg font-black tracking-wide mb-4">RISK LEVEL</h3>
-        <div className={`text-3xl font-black ${RiskCalculation.getRiskLevelColor(riskLevel)}`}>
+        <h3 className="text-lg text-gray-500 tracking-wide mb-4">RISK LEVEL</h3>
+        <div className={`text-3xl text-gray-500 ${RiskCalculation.getRiskLevelColor(riskLevel)}`}>
           {riskLevel}
         </div>
       </div>
 
       {/* Key Metrics */}
       <div className="mb-8">
-        <h3 className="text-lg font-black tracking-wide mb-4">KEY METRICS</h3>
+        <h3 className="text-lg text-gray-500 tracking-wide mb-4">KEY METRICS</h3>
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-gray-50 p-4">
             <div className="text-sm text-gray-600">Position Size</div>
-            <div className="text-lg font-semibold">{calculations.positionSize.toFixed(4)}</div>
+            <div className="text-lg font-semibold text-gray-500">{calculations.positionSize.toFixed(4)}</div>
           </div>
           <div className="bg-gray-50 p-4">
             <div className="text-sm text-gray-600">Margin Required</div>
-            <div className="text-lg font-semibold">{RiskCalculation.formatCurrency(calculations.marginRequired)}</div>
+            <div className="text-lg font-semibold text-gray-500">{RiskCalculation.formatCurrency(calculations.marginRequired)}</div>
           </div>
           <div className="bg-gray-50 p-4">
             <div className="text-sm text-gray-600">Liquidation Price</div>
-            <div className="text-lg font-semibold">{RiskCalculation.formatCurrency(calculations.liquidationPrice)}</div>
+            <div className="text-lg font-semibold text-gray-500">{RiskCalculation.formatCurrency(calculations.liquidationPrice)}</div>
           </div>
           <div className="bg-gray-50 p-4">
             <div className="text-sm text-gray-600">Max Loss %</div>
-            <div className="text-lg font-semibold">{RiskCalculation.formatPercentage(calculations.maxLossPercentage)}</div>
+            <div className="text-lg font-semibold text-gray-500">{RiskCalculation.formatPercentage(calculations.maxLossPercentage)}</div>
           </div>
         </div>
       </div>
@@ -109,9 +109,9 @@ export default function RiskDashboard({ analysis }: RiskDashboardProps) {
 
       {/* Risk/Reward Ratio */}
       <div className="mb-8">
-        <h3 className="text-lg font-black tracking-wide mb-4">RISK/REWARD RATIO</h3>
+        <h3 className="text-lg text-gray-500 tracking-wide mb-4">RISK/REWARD RATIO</h3>
         <div className="text-center">
-          <div className="text-4xl font-black mb-2">1:{calculations.riskRewardRatio.toFixed(2)}</div>
+          <div className="text-4xl text-gray-500 mb-2">1:{calculations.riskRewardRatio.toFixed(2)}</div>
           <div className="text-sm text-gray-600">
             {calculations.riskRewardRatio >= 1.5 ? 'Good' : calculations.riskRewardRatio >= 1 ? 'Fair' : 'Poor'} Risk/Reward
           </div>
@@ -120,7 +120,7 @@ export default function RiskDashboard({ analysis }: RiskDashboardProps) {
 
       {/* Recommendations */}
       <div>
-        <h3 className="text-lg font-black tracking-wide mb-4">RECOMMENDATIONS</h3>
+        <h3 className="text-lg text-gray-500 tracking-wide mb-4">RECOMMENDATIONS</h3>
         <div className="space-y-2">
           {recommendations.map((recommendation, index) => (
             <div key={index} className="flex items-start space-x-2">
