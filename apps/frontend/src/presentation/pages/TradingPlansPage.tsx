@@ -155,27 +155,27 @@ export default function TradingPlansPage() {
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700 font-light">Entry:</span>
-                    <span className="font-black tracking-wide">${plan.entryPrice.toLocaleString()}</span>
+                    <span className="text-gray-500 tracking-wide">${plan.entryPrice.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700 font-light">Stop Loss:</span>
-                    <span className="font-black tracking-wide">${plan.stopLoss.toLocaleString()}</span>
+                    <span className="text-gray-500 tracking-wide">${plan.stopLoss.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700 font-light">Take Profit:</span>
-                    <span className="font-black tracking-wide">${plan.takeProfit.toLocaleString()}</span>
+                    <span className="text-gray-500 tracking-wide">${plan.takeProfit.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700 font-light">Leverage:</span>
-                    <span className="font-black tracking-wide">{plan.leverage}x</span>
+                    <span className="text-gray-500 tracking-wide">{plan.leverage}x</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700 font-light">Position:</span>
-                    <span className="font-black tracking-wide">{plan.positionType}</span>
+                    <span className="text-gray-500 tracking-wide">{plan.positionType}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700 font-light">Risk Level:</span>
-                    <span className={`font-black tracking-wide ${getRiskLevelColor(plan.riskLevel)}`}>
+                    <span className={`text-gray-500 tracking-wide ${getRiskLevelColor(plan.riskLevel)}`}>
                       {plan.riskLevel}
                     </span>
                   </div>
@@ -197,7 +197,7 @@ export default function TradingPlansPage() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700 font-light">Risk/Reward:</span>
-                    <span className="font-black tracking-wide">1:{plan.riskRewardRatio.toFixed(2)}</span>
+                    <span className="text-gray-500 tracking-wide">1:{plan.riskRewardRatio.toFixed(2)}</span>
                   </div>
                 </div>
 
