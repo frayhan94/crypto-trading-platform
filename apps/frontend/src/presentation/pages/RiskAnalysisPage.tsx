@@ -72,7 +72,7 @@ export default function RiskAnalysisPage() {
               <div className="mt-6">
                 <button
                   onClick={() => setShowSaveModal(true)}
-                  className="w-full bg-black text-white py-3 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
+                  className="w-full bg-black text-gray-500 py-3 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
                 >
                   SAVE AS TRADING PLAN
                 </button>
