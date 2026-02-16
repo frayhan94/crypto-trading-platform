@@ -1,6 +1,6 @@
-import { TradingValidation } from '../../domain/rules/TradingValidation';
-import { TradingPlanRepository } from '../../infrastructure/api/TradingPlanRepository';
-import { CreateTradingPlanRequest, CreateTradingPlanResult } from '../dtos';
+import {TradingValidation} from '../../domain/rules/TradingValidation';
+import {TradingPlanRepository} from '../../infrastructure/api/TradingPlanRepository';
+import {CreateTradingPlanRequest, CreateTradingPlanResult} from '../dtos';
 
 export class CreateTradingPlanUseCase {
   constructor(private readonly tradingPlanRepository: TradingPlanRepository) {}
@@ -20,9 +20,7 @@ export class CreateTradingPlanUseCase {
       }
 
       // Create trading plan via repository
-      const result = await this.tradingPlanRepository.create(request);
-
-      return result;
+      return await this.tradingPlanRepository.create(request);
     } catch (error) {
       return {
         success: false,
