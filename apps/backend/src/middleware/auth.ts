@@ -43,15 +43,8 @@ export async function authMiddleware(c: Context, next: Next) {
   try {
     let payload: { sub?: string; email?: string; role?: string };
 
-    if (supabaseJwtSecret) {
-      // Verify using JWT secret (recommended)
-      const secret = new TextEncoder().encode(supabaseJwtSecret);
-      const { payload: verifiedPayload } = await jwtVerify(token, secret, {
-        issuer: supabaseUrl ? `${supabaseUrl}/auth/v1` : undefined,
-      });
-      payload = verifiedPayload as typeof payload;
-    } else if (supabaseUrl) {
-      // Fallback: Verify using JWKS (requires network call)
+    if (supabaseUrl) {
+      // Use JWKS for ES256 tokens (recommended for Supabase)
       const JWKS = createRemoteJWKSet(
         new URL(`${supabaseUrl}/auth/v1/.well-known/jwks.json`)
       );
@@ -60,7 +53,7 @@ export async function authMiddleware(c: Context, next: Next) {
       });
       payload = verifiedPayload as typeof payload;
     } else {
-      console.error('Auth middleware: Neither SUPABASE_JWT_SECRET nor SUPABASE_URL configured');
+      console.error('Auth middleware: SUPABASE_URL not configured');
       return c.json({ 
         error: 'Server Configuration Error', 
         message: 'Authentication not properly configured' 
