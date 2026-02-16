@@ -58,7 +58,7 @@ export default function RiskDashboard({ analysis }: RiskDashboardProps) {
 
       {/* Potential Outcomes */}
       <div className="mb-8">
-        <h3 className="text-lg font-black tracking-wide mb-4">POTENTIAL OUTCOMES</h3>
+        <h3 className="text-lg text-gray-500 tracking-wide mb-4">POTENTIAL OUTCOMES</h3>
         <div className="space-y-3">
           <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200">
             <div>

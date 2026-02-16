@@ -49,8 +49,7 @@ export default function TradingInputForm({ onSubmit, isLoading = false }: Tradin
       accountBalance: 10000,
       riskPercentage: 2,
       leverage: 5,
-      positionType: 'long',
-      balance: 10000
+      positionType: 'long'
     },
     mode: 'onBlur'
   });
@@ -139,7 +138,7 @@ export default function TradingInputForm({ onSubmit, isLoading = false }: Tradin
         leverage: data.leverage,
         positionType: data.positionType === 'long' ? PositionType.LONG : PositionType.SHORT,
         riskPercentage: data.riskPercentage,
-        accountBalance: data.balance
+        accountBalance: data.accountBalance
       };
 
       await onSubmit(tradingParams);
