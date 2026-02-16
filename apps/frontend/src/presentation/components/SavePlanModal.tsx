@@ -85,7 +85,7 @@ export default function SavePlanModal({
       <div className="relative bg-white border border-gray-300 p-8 max-w-md w-full mx-4">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-black"
+          className="absolute top-4 right-4 text-gray-500 hover:text-black cursor-pointer"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -151,14 +151,14 @@ export default function SavePlanModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 border border-gray-300 font-black tracking-wide hover:bg-gray-50 transition-colors"
+              className="flex-1 py-3 border border-gray-300 font-black tracking-wide hover:bg-gray-50 transition-colors cursor-pointer"
             >
               CANCEL
             </button>
             <button
               type="submit"
               disabled={isLoading || !name.trim()}
-              className="flex-1 bg-black text-white py-3 font-black tracking-wide hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-black text-white py-3 font-black tracking-wide hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {isLoading ? 'SAVING...' : 'SAVE PLAN'}
             </button>

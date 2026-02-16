@@ -50,13 +50,13 @@ export default function RiskAnalysisPage() {
           <nav className="flex space-x-4">
             <a 
               href="/risk" 
-              className="bg-black text-white px-3 py-2 rounded-md text-sm font-medium"
+              className="bg-black text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
             >
               Analyze Risk
             </a>
             <a 
               href="/plans" 
-              className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+              className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
             >
               My Plans
             </a>
@@ -86,7 +86,7 @@ export default function RiskAnalysisPage() {
               <div className="mt-6">
                 <button
                   onClick={() => setShowSaveModal(true)}
-                  className="w-full bg-black text-white py-3 font-black tracking-wide hover:bg-gray-800 transition-colors"
+                  className="w-full bg-black text-white py-3 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
                 >
                   SAVE AS TRADING PLAN
                 </button>
@@ -96,7 +96,7 @@ export default function RiskAnalysisPage() {
             {analysis && !user && (
               <div className="mt-6 bg-gray-50 border border-gray-200 p-4 text-center">
                 <p className="text-sm text-gray-600">
-                  <a href="/login" className="font-black text-black hover:underline">Sign in</a> to save this analysis as a trading plan
+                  <a href="/login" className="font-black text-black hover:underline cursor-pointer">Sign in</a> to save this analysis as a trading plan
                 </p>
               </div>
             )}

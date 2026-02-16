@@ -75,7 +75,7 @@ export default function Modal({ isOpen, onClose, title, message, type = 'error' 
         <div className="border-t border-gray-300 p-6">
           <button
             onClick={onClose}
-            className="w-full bg-black text-white py-3 px-6 font-black tracking-wider hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+            className="w-full bg-black text-white py-3 px-6 font-black tracking-wider hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 cursor-pointer"
           >
             UNDERSTOOD
           </button>
@@ -84,7 +84,7 @@ export default function Modal({ isOpen, onClose, title, message, type = 'error' 
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors p-1"
+          className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors p-1 cursor-pointer"
           aria-label="Close modal"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
