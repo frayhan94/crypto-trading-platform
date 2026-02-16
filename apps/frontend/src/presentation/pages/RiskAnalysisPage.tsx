@@ -9,6 +9,7 @@ import { useCreateTradingPlan } from '../../application/hooks/useTradingPlans';
 import TradingInputForm from '../components/TradingInputForm';
 import RiskDashboard from '../components/RiskDashboard';
 import SavePlanModal from '../components/SavePlanModal';
+import Navigation from '../../components/Navigation';
 
 export default function RiskAnalysisPage() {
   const { user } = useAuth();
@@ -46,22 +47,7 @@ export default function RiskAnalysisPage() {
         </div>
 
         {/* Navigation */}
-        <div className="mb-6">
-          <nav className="flex space-x-4">
-            <a 
-              href="/risk" 
-              className="bg-black text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
-            >
-              Analyze Risk
-            </a>
-            <a 
-              href="/plans" 
-              className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
-            >
-              My Plans
-            </a>
-          </nav>
-        </div>
+        <Navigation currentPage="risk" />
 
         {/* Error Display */}
         {error && (

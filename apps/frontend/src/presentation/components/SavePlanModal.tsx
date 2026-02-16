@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { RiskAnalysis } from '../../domain/models/TradingPlan';
 import { TradingValidation } from '../../domain/rules/TradingValidation';
 import { CreateTradingPlanRequest } from '../../application/dtos';
+import Modal from '../../components/Modal';
 
 interface SavePlanModalProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ export default function SavePlanModal({
   const [description, setDescription] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   if (!isOpen) return null;
 
@@ -73,16 +75,23 @@ export default function SavePlanModal({
     }
 
     setIsLoading(false);
+    setShowSuccessModal(true);
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
+    onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div 
-        className="absolute inset-0 bg-black/50" 
-        onClick={onClose}
-      />
-      
-      <div className="relative bg-white border border-gray-300 p-8 max-w-md w-full mx-4">
+    <>
+      <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div 
+          className="absolute inset-0 bg-black/50" 
+          onClick={onClose}
+        />
+        
+        <div className="relative bg-white border border-gray-300 p-8 max-w-md w-full mx-4">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-black cursor-pointer"
@@ -166,5 +175,14 @@ export default function SavePlanModal({
         </form>
       </div>
     </div>
+
+    <Modal
+      isOpen={showSuccessModal}
+      onClose={handleSuccessModalClose}
+      title="SUCCESSFULLY CREATED"
+      message={`Trading plan "${name}" has been successfully created and saved.`}
+      type="success"
+    />
+    </>
   );
 }

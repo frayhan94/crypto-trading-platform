@@ -7,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   message: string;
-  type?: 'error' | 'warning' | 'info';
+  type?: 'error' | 'warning' | 'info' | 'success';
 }
 
 export default function Modal({ isOpen, onClose, title, message, type = 'error' }: ModalProps) {
@@ -39,6 +39,8 @@ export default function Modal({ isOpen, onClose, title, message, type = 'error' 
         return '⚠️';
       case 'info':
         return 'ℹ️';
+      case 'success':
+        return '✅';
       default:
         return '❌';
     }

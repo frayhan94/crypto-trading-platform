@@ -6,6 +6,7 @@ import { useAuth } from '../../components/auth/AuthProvider';
 import { useTradingPlans, useUpdatePlanStatus, useDeleteTradingPlan } from '../../application/hooks/useTradingPlans';
 import { DateUtils } from '../../domain/utils/DateUtils';
 import { RiskCalculation } from '../../domain/utils/RiskCalculation';
+import Navigation from '../../components/Navigation';
 
 export default function TradingPlansPage() {
   const { user } = useAuth();
@@ -48,9 +49,9 @@ export default function TradingPlansPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Please Sign In</h1>
-          <p className="text-gray-600">You need to be signed in to view your trading plans.</p>
-          <a href="/login" className="inline-block mt-4 bg-black text-white px-6 py-2 rounded">
+          <h1 className="text-2xl font-black tracking-tight mb-4">Please Sign In</h1>
+          <p className="text-gray-700 font-light">You need to be signed in to view your trading plans.</p>
+          <a href="/login" className="inline-block mt-4 bg-black text-white px-6 py-3 font-black tracking-wider hover:bg-gray-800 transition-colors cursor-pointer">
             Sign In
           </a>
         </div>
@@ -63,35 +64,20 @@ export default function TradingPlansPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Trading Plans</h1>
-          <p className="text-gray-600">Manage and track your trading strategies</p>
+          <h1 className="text-3xl font-black tracking-tight text-black mb-2">My Trading Plans</h1>
+          <p className="text-gray-700 font-light">Manage and track your trading strategies</p>
         </div>
 
         {/* Navigation */}
-        <div className="mb-6">
-          <nav className="flex space-x-4">
-            <a 
-              href="/risk" 
-              className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Analyze Risk
-            </a>
-            <a 
-              href="/plans" 
-              className="bg-black text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              My Plans
-            </a>
-          </nav>
-        </div>
+        <Navigation currentPage="plans" />
 
         {/* Filter */}
         <div className="mb-6 flex items-center space-x-4">
-          <label className="text-sm font-medium text-gray-700">Filter by status:</label>
+          <label className="text-sm font-black tracking-wide text-gray-700">Filter by status:</label>
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value as PlanStatus | 'ALL')}
-            className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+            className="border border-gray-300 px-4 py-2 text-sm focus:border-black focus:ring-0 outline-none"
           >
             <option value="ALL">All Plans</option>
             <option value={PlanStatus.DRAFT}>Draft</option>
@@ -103,22 +89,30 @@ export default function TradingPlansPage() {
 
         {/* Error State */}
         {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-            {error instanceof Error ? error.message : 'Failed to load trading plans'}
+          <div className="mb-6 bg-white border-2 border-black shadow-2xl p-6">
+            <div className="flex items-center space-x-3">
+              <span className="text-2xl">❌</span>
+              <div>
+                <h3 className="text-xl font-black tracking-tight text-black mb-1">Error</h3>
+                <p className="text-gray-700 font-light">
+                  {error instanceof Error ? error.message : 'Failed to load trading plans'}
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
         {/* Loading State */}
         {isLoading && (
           <div className="text-center py-8">
-            <div className="text-gray-500">Loading trading plans...</div>
+            <div className="text-gray-700 font-light">Loading trading plans...</div>
           </div>
         )}
 
         {/* Plans List */}
         {!isLoading && filteredPlans.length === 0 && (
           <div className="text-center py-8">
-            <div className="text-gray-500">
+            <div className="text-gray-700 font-light">
               {filter === 'ALL' 
                 ? "You haven't created any trading plans yet." 
                 : `No ${filter.toLowerCase()} plans found.`}
@@ -126,7 +120,7 @@ export default function TradingPlansPage() {
             {filter === 'ALL' && (
               <a 
                 href="/risk" 
-                className="inline-block mt-4 bg-black text-white px-6 py-2 rounded"
+                className="inline-block mt-4 bg-black text-white px-6 py-3 font-black tracking-wider hover:bg-gray-800 transition-colors cursor-pointer"
               >
                 Create Your First Plan
               </a>
@@ -138,72 +132,72 @@ export default function TradingPlansPage() {
         {!isLoading && filteredPlans.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPlans.map((plan) => (
-              <div key={plan.id} className="bg-white border border-gray-300 rounded-lg p-6">
+              <div key={plan.id} className="bg-white border-2 border-black shadow-2xl p-6">
                 {/* Header */}
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{plan.name}</h3>
-                    <p className="text-sm text-gray-500">
+                    <h3 className="text-lg font-black tracking-tight text-black">{plan.name}</h3>
+                    <p className="text-sm text-gray-700 font-light">
                       {DateUtils.formatRelativeTime(plan.createdAt)}
                     </p>
                   </div>
-                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(plan.status)}`}>
+                  <span className={`px-3 py-1 text-xs font-black tracking-wide border-2 border-black ${getStatusColor(plan.status)}`}>
                     {plan.status}
                   </span>
                 </div>
 
                 {/* Description */}
                 {plan.description && (
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">{plan.description}</p>
+                  <p className="text-sm text-gray-700 font-light mb-4 line-clamp-2">{plan.description}</p>
                 )}
 
                 {/* Trading Details */}
                 <div className="space-y-2 mb-4">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Entry:</span>
-                    <span className="font-medium">${plan.entryPrice.toLocaleString()}</span>
+                    <span className="text-gray-700 font-light">Entry:</span>
+                    <span className="font-black tracking-wide">${plan.entryPrice.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Stop Loss:</span>
-                    <span className="font-medium">${plan.stopLoss.toLocaleString()}</span>
+                    <span className="text-gray-700 font-light">Stop Loss:</span>
+                    <span className="font-black tracking-wide">${plan.stopLoss.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Take Profit:</span>
-                    <span className="font-medium">${plan.takeProfit.toLocaleString()}</span>
+                    <span className="text-gray-700 font-light">Take Profit:</span>
+                    <span className="font-black tracking-wide">${plan.takeProfit.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Leverage:</span>
-                    <span className="font-medium">{plan.leverage}x</span>
+                    <span className="text-gray-700 font-light">Leverage:</span>
+                    <span className="font-black tracking-wide">{plan.leverage}x</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Position:</span>
-                    <span className="font-medium">{plan.positionType}</span>
+                    <span className="text-gray-700 font-light">Position:</span>
+                    <span className="font-black tracking-wide">{plan.positionType}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Risk Level:</span>
-                    <span className={`font-medium ${getRiskLevelColor(plan.riskLevel)}`}>
+                    <span className="text-gray-700 font-light">Risk Level:</span>
+                    <span className={`font-black tracking-wide ${getRiskLevelColor(plan.riskLevel)}`}>
                       {plan.riskLevel}
                     </span>
                   </div>
                 </div>
 
                 {/* Potential P/L */}
-                <div className="border-t pt-4 mb-4">
+                <div className="border-t-2 border-black pt-4 mb-4">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Potential Profit:</span>
-                    <span className="font-medium text-green-600">
+                    <span className="text-gray-700 font-light">Potential Profit:</span>
+                    <span className="font-black tracking-wide text-green-600">
                       +${plan.potentialProfit.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Potential Loss:</span>
-                    <span className="font-medium text-red-600">
+                    <span className="text-gray-700 font-light">Potential Loss:</span>
+                    <span className="font-black tracking-wide text-red-600">
                       -${plan.potentialLoss.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Risk/Reward:</span>
-                    <span className="font-medium">1:{plan.riskRewardRatio.toFixed(2)}</span>
+                    <span className="text-gray-700 font-light">Risk/Reward:</span>
+                    <span className="font-black tracking-wide">1:{plan.riskRewardRatio.toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -212,33 +206,33 @@ export default function TradingPlansPage() {
                   {plan.status === PlanStatus.DRAFT && (
                     <button
                       onClick={() => handleStatusUpdate(plan.id, PlanStatus.ACTIVE)}
-                      className="flex-1 bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700"
+                      className="flex-1 bg-black text-white px-3 py-2 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
                     >
-                      Activate
+                      ACTIVATE
                     </button>
                   )}
                   {plan.status === PlanStatus.ACTIVE && (
                     <button
                       onClick={() => handleStatusUpdate(plan.id, PlanStatus.EXECUTED)}
-                      className="flex-1 bg-green-600 text-white px-3 py-2 rounded text-sm hover:bg-green-700"
+                      className="flex-1 bg-black text-white px-3 py-2 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
                     >
-                      Execute
+                      EXECUTE
                     </button>
                   )}
                   {plan.status === PlanStatus.ACTIVE && (
                     <button
                       onClick={() => handleStatusUpdate(plan.id, PlanStatus.CANCELLED)}
-                      className="flex-1 bg-red-600 text-white px-3 py-2 rounded text-sm hover:bg-red-700"
+                      className="flex-1 border-2 border-black px-3 py-2 font-black tracking-wide hover:bg-black hover:text-white transition-colors cursor-pointer"
                     >
-                      Cancel
+                      CANCEL
                     </button>
                   )}
                   {(plan.status === PlanStatus.DRAFT || plan.status === PlanStatus.CANCELLED) && (
                     <button
                       onClick={() => handleDelete(plan.id)}
-                      className="flex-1 bg-gray-600 text-white px-3 py-2 rounded text-sm hover:bg-gray-700"
+                      className="flex-1 border-2 border-black px-3 py-2 font-black tracking-wide hover:bg-black hover:text-white transition-colors cursor-pointer"
                     >
-                      Delete
+                      DELETE
                     </button>
                   )}
                 </div>
