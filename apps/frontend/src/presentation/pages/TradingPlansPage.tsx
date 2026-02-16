@@ -7,10 +7,17 @@ import { useTradingPlans, useUpdatePlanStatus, useDeleteTradingPlan } from '../.
 import { DateUtils } from '../../domain/utils/DateUtils';
 import { RiskCalculation } from '../../domain/utils/RiskCalculation';
 import Navigation from '../../components/Navigation';
+import Modal from '../../components/Modal';
 
 export default function TradingPlansPage() {
   const { user } = useAuth();
   const [filter, setFilter] = useState<PlanStatus | 'ALL'>('ALL');
+  const [successModal, setSuccessModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+  }>({ isOpen: false, title: '', message: '' });
+  const [updatingPlanId, setUpdatingPlanId] = useState<string | null>(null);
 
   // React Query hooks
   const { data: plans = [], isLoading, error } = useTradingPlans(user?.id || '');
@@ -22,7 +29,38 @@ export default function TradingPlansPage() {
     : plans.filter(plan => plan.status === filter);
 
   const handleStatusUpdate = async (planId: string, newStatus: PlanStatus) => {
-    await updatePlanStatusMutation.mutateAsync({ id: planId, status: newStatus });
+    const plan = plans.find(p => p.id === planId);
+    const planName = plan?.name || 'Trading Plan';
+    
+    setUpdatingPlanId(planId);
+    
+    try {
+      await updatePlanStatusMutation.mutateAsync({ id: planId, status: newStatus });
+      
+      let title = '';
+      let message = '';
+      
+      switch (newStatus) {
+        case PlanStatus.ACTIVE:
+          title = 'PLAN ACTIVATED';
+          message = `"${planName}" has been successfully activated and is now ready for execution.`;
+          break;
+        case PlanStatus.EXECUTED:
+          title = 'PLAN EXECUTED';
+          message = `"${planName}" has been marked as executed.`;
+          break;
+        case PlanStatus.CANCELLED:
+          title = 'PLAN CANCELLED';
+          message = `"${planName}" has been cancelled.`;
+          break;
+      }
+      
+      setSuccessModal({ isOpen: true, title, message });
+    } catch (error) {
+      console.error('Failed to update plan status:', error);
+    } finally {
+      setUpdatingPlanId(null);
+    }
   };
 
   const handleDelete = async (planId: string) => {
@@ -206,31 +244,35 @@ export default function TradingPlansPage() {
                   {plan.status === PlanStatus.DRAFT && (
                     <button
                       onClick={() => handleStatusUpdate(plan.id, PlanStatus.ACTIVE)}
-                      className="flex-1 bg-black text-white px-3 py-2 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
+                      disabled={updatingPlanId === plan.id}
+                      className="flex-1 bg-black text-white px-3 py-2 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      ACTIVATE
+                      {updatingPlanId === plan.id ? 'ACTIVATING...' : 'ACTIVATE'}
                     </button>
                   )}
                   {plan.status === PlanStatus.ACTIVE && (
                     <button
                       onClick={() => handleStatusUpdate(plan.id, PlanStatus.EXECUTED)}
-                      className="flex-1 bg-black text-white px-3 py-2 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer"
+                      disabled={updatingPlanId === plan.id}
+                      className="flex-1 bg-black text-white px-3 py-2 font-black tracking-wide hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      EXECUTE
+                      {updatingPlanId === plan.id ? 'EXECUTING...' : 'EXECUTE'}
                     </button>
                   )}
                   {plan.status === PlanStatus.ACTIVE && (
                     <button
                       onClick={() => handleStatusUpdate(plan.id, PlanStatus.CANCELLED)}
-                      className="flex-1 border-2 border-black px-3 py-2 font-black tracking-wide hover:bg-black hover:text-white transition-colors cursor-pointer"
+                      disabled={updatingPlanId === plan.id}
+                      className="flex-1 border-2 border-black px-3 py-2 font-black tracking-wide hover:bg-black hover:text-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      CANCEL
+                      {updatingPlanId === plan.id ? 'CANCELLING...' : 'CANCEL'}
                     </button>
                   )}
                   {(plan.status === PlanStatus.DRAFT || plan.status === PlanStatus.CANCELLED) && (
                     <button
                       onClick={() => handleDelete(plan.id)}
-                      className="flex-1 border-2 border-black px-3 py-2 font-black tracking-wide hover:bg-black hover:text-white transition-colors cursor-pointer"
+                      disabled={updatingPlanId === plan.id}
+                      className="flex-1 border-2 border-black px-3 py-2 font-black tracking-wide hover:bg-black hover:text-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       DELETE
                     </button>
@@ -241,6 +283,15 @@ export default function TradingPlansPage() {
           </div>
         )}
       </div>
+      
+      {/* Success Modal */}
+      <Modal
+        isOpen={successModal.isOpen}
+        onClose={() => setSuccessModal({ isOpen: false, title: '', message: '' })}
+        title={successModal.title}
+        message={successModal.message}
+        type="success"
+      />
     </div>
   );
 }
