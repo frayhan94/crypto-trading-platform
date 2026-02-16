@@ -1,14 +1,6 @@
-export interface User {
-  id: string;
-  email: string;
-  name?: string;
-}
+import { User, AuthState } from '../../application/dtos';
 
-export interface AuthState {
-  user: User | null;
-  isLoading: boolean;
-  error: string | null;
-}
+export type { User, AuthState };
 
 export class SupabaseAuthAdapter {
   private static instance: SupabaseAuthAdapter;

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { RiskAnalysis } from '../../domain/models/TradingPlan';
 import { TradingValidation } from '../../domain/rules/TradingValidation';
-import { CreateTradingPlanRequest } from '../../application/use-cases/CreateTradingPlan';
+import { CreateTradingPlanRequest } from '../../application/dtos';
 
 interface SavePlanModalProps {
   isOpen: boolean;

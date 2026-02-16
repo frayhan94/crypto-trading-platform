@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { TradingParameters } from '../../domain/models/TradingPlan';
-import { CreateTradingPlanRequest } from '../../application/use-cases/CreateTradingPlan';
+import { CreateTradingPlanRequest } from '../../application/dtos';
 import { useAnalyzeRisk } from '../hooks/useAnalyzeRisk';
 import { useAuth } from '../../components/auth/AuthProvider';
 import { useTradingPlanStore } from '../../application/stores/TradingPlanStore';

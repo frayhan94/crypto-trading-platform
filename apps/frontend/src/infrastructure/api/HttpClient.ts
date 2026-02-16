@@ -1,8 +1,6 @@
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-}
+import { ApiResponse } from '../../application/dtos';
+
+export type { ApiResponse };
 
 export class HttpClient {
   private readonly baseUrl: string;

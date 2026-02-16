@@ -1,61 +1,13 @@
 import { TradingPlan, PlanStatus } from '../../domain/models/TradingPlan';
-import { HttpClient, ApiResponse } from './HttpClient';
+import { HttpClient } from './HttpClient';
 import { AuthenticatedHttpClient, getAuthenticatedClient } from './AuthenticatedHttpClient';
-
-export interface CreateTradingPlanRequest {
-  userId: string;
-  name: string;
-  description?: string;
-  entryPrice: number;
-  stopLoss: number;
-  takeProfit: number;
-  leverage: number;
-  positionType: 'LONG' | 'SHORT';
-  riskPercentage: number;
-  accountBalance: number;
-  liquidationPrice: number;
-  positionSize: number;
-  marginRequired: number;
-  orderValue: number;
-  potentialProfit: number;
-  potentialLoss: number;
-  riskRewardRatio: number;
-  maxLossPercentage: number;
-  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'EXTREME';
-  recommendations: string[];
-}
-
-export interface CreateTradingPlanResponse {
-  success: boolean;
-  data?: {
-    id: string;
-    name: string;
-    status: PlanStatus;
-    createdAt: Date;
-  };
-  error?: string;
-}
-
-export interface GetPlansResponse {
-  success: boolean;
-  data?: TradingPlan[];
-  error?: string;
-}
-
-export interface UpdatePlanStatusRequest {
-  status: PlanStatus;
-}
-
-export interface UpdatePlanStatusResponse {
-  success: boolean;
-  data?: {
-    id: string;
-    status: PlanStatus;
-    updatedAt: Date;
-    executedAt?: Date | null;
-  };
-  error?: string;
-}
+import {
+  CreateTradingPlanRequest,
+  CreateTradingPlanResponse,
+  GetPlansResponse,
+  UpdatePlanStatusResponse,
+  ApiResponse,
+} from '../../application/dtos';
 
 export class TradingPlanRepository {
   constructor(private readonly httpClient: HttpClient | AuthenticatedHttpClient = getAuthenticatedClient()) {}

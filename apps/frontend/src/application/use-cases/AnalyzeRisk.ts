@@ -1,12 +1,7 @@
-import { TradingParameters, RiskAnalysis } from '../../domain/models/TradingPlan';
+import { TradingParameters } from '../../domain/models/TradingPlan';
 import { RiskCalculation } from '../../domain/utils/RiskCalculation';
 import { TradingValidation } from '../../domain/rules/TradingValidation';
-
-export interface AnalyzeRiskResult {
-  success: boolean;
-  data?: RiskAnalysis;
-  errors?: string[];
-}
+import { AnalyzeRiskResult } from '../dtos';
 
 export class AnalyzeRiskUseCase {
   execute(params: TradingParameters): AnalyzeRiskResult {

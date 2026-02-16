@@ -1,22 +1,6 @@
-import { TradingPlan, PlanStatus, PositionType, RiskLevel } from '../../domain/models/TradingPlan';
+import { PlanStatus, PositionType, RiskLevel } from '../../domain/models/TradingPlan';
 import { TradingPlanRepository } from '../../infrastructure/api/TradingPlanRepository';
-
-export interface GetPlansResult {
-  success: boolean;
-  data?: TradingPlan[];
-  error?: string;
-}
-
-export interface UpdatePlanResult {
-  success: boolean;
-  data?: TradingPlan;
-  error?: string;
-}
-
-export interface DeletePlanResult {
-  success: boolean;
-  error?: string;
-}
+import { GetPlansResult, UpdatePlanResult, DeletePlanResult } from '../dtos';
 
 export class TradingPlanService {
   constructor(private readonly repository: TradingPlanRepository) {}

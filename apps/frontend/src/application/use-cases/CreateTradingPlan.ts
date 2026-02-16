@@ -1,40 +1,6 @@
-import { PlanStatus } from '../../domain/models/TradingPlan';
 import { TradingValidation } from '../../domain/rules/TradingValidation';
 import { TradingPlanRepository } from '../../infrastructure/api/TradingPlanRepository';
-
-export interface CreateTradingPlanRequest {
-  userId: string;
-  name: string;
-  description?: string;
-  entryPrice: number;
-  stopLoss: number;
-  takeProfit: number;
-  leverage: number;
-  positionType: 'LONG' | 'SHORT';
-  riskPercentage: number;
-  accountBalance: number;
-  liquidationPrice: number;
-  positionSize: number;
-  marginRequired: number;
-  orderValue: number;
-  potentialProfit: number;
-  potentialLoss: number;
-  riskRewardRatio: number;
-  maxLossPercentage: number;
-  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'EXTREME';
-  recommendations: string[];
-}
-
-export interface CreateTradingPlanResult {
-  success: boolean;
-  data?: {
-    id: string;
-    name: string;
-    status: PlanStatus;
-    createdAt: Date;
-  };
-  error?: string;
-}
+import { CreateTradingPlanRequest, CreateTradingPlanResult } from '../dtos';
 
 export class CreateTradingPlanUseCase {
   constructor(private readonly tradingPlanRepository: TradingPlanRepository) {}
