@@ -4,6 +4,7 @@ import "./globals.css";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import TopNavigation from "@/components/TopNavigation";
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import { ReactQueryProvider } from "@/lib/react-query-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,12 +60,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <ErrorBoundary>
-            <TopNavigation />
-            {children}
-          </ErrorBoundary>
-        </AuthProvider>
+        <ReactQueryProvider>
+          <AuthProvider>
+            <ErrorBoundary>
+              <TopNavigation />
+              {children}
+            </ErrorBoundary>
+          </AuthProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

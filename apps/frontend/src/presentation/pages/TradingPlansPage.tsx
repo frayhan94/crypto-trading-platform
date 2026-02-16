@@ -1,42 +1,32 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { PlanStatus, RiskLevel } from '../../domain/models/TradingPlan';
 import { useAuth } from '../../components/auth/AuthProvider';
-import { useTradingPlanStore } from '../../application/stores/TradingPlanStore';
+import { useTradingPlans, useUpdatePlanStatus, useDeleteTradingPlan } from '../../application/hooks/useTradingPlans';
 import { DateUtils } from '../../domain/utils/DateUtils';
 import { RiskCalculation } from '../../domain/utils/RiskCalculation';
 
 export default function TradingPlansPage() {
   const { user } = useAuth();
-  const { 
-    plans, 
-    isLoading, 
-    error, 
-    fetchPlans, 
-    updatePlanStatus, 
-    deletePlan 
-  } = useTradingPlanStore();
-  
   const [filter, setFilter] = useState<PlanStatus | 'ALL'>('ALL');
 
-  useEffect(() => {
-    if (user) {
-      fetchPlans(user.id);
-    }
-  }, [user, fetchPlans]);
+  // React Query hooks
+  const { data: plans = [], isLoading, error } = useTradingPlans(user?.id || '');
+  const updatePlanStatusMutation = useUpdatePlanStatus();
+  const deletePlanMutation = useDeleteTradingPlan();
 
   const filteredPlans = filter === 'ALL' 
     ? plans 
     : plans.filter(plan => plan.status === filter);
 
   const handleStatusUpdate = async (planId: string, newStatus: PlanStatus) => {
-    await updatePlanStatus(planId, newStatus);
+    await updatePlanStatusMutation.mutateAsync({ id: planId, status: newStatus });
   };
 
   const handleDelete = async (planId: string) => {
     if (window.confirm('Are you sure you want to delete this trading plan?')) {
-      await deletePlan(planId);
+      await deletePlanMutation.mutateAsync(planId);
     }
   };
 
@@ -114,7 +104,7 @@ export default function TradingPlansPage() {
         {/* Error State */}
         {error && (
           <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-            {error}
+            {error instanceof Error ? error.message : 'Failed to load trading plans'}
           </div>
         )}
 

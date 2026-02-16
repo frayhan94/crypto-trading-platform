@@ -5,7 +5,7 @@ import { TradingParameters } from '../../domain/models/TradingPlan';
 import { CreateTradingPlanRequest } from '../../application/dtos';
 import { useAnalyzeRisk } from '../hooks/useAnalyzeRisk';
 import { useAuth } from '../../components/auth/AuthProvider';
-import { useTradingPlanStore } from '../../application/stores/TradingPlanStore';
+import { useCreateTradingPlan } from '../../application/hooks/useTradingPlans';
 import TradingInputForm from '../components/TradingInputForm';
 import RiskDashboard from '../components/RiskDashboard';
 import SavePlanModal from '../components/SavePlanModal';
@@ -13,7 +13,7 @@ import SavePlanModal from '../components/SavePlanModal';
 export default function RiskAnalysisPage() {
   const { user } = useAuth();
   const { analysis, isLoading, error, analyzeRisk, clearAnalysis } = useAnalyzeRisk();
-  const { createPlan } = useTradingPlanStore();
+  const createPlanMutation = useCreateTradingPlan();
   const [showSaveModal, setShowSaveModal] = useState(false);
 
   const handleAnalyze = useCallback(async (params: TradingParameters) => {
@@ -23,16 +23,18 @@ export default function RiskAnalysisPage() {
   const handleSavePlan = useCallback(async (data: Omit<CreateTradingPlanRequest, 'userId'>) => {
     if (!user) return;
     
-    const result = await createPlan({
-      ...data,
-      userId: user.id,
-    });
-    
-    if (result.success) {
+    try {
+      await createPlanMutation.mutateAsync({
+        ...data,
+        userId: user.id,
+      });
+      
       setShowSaveModal(false);
       clearAnalysis();
+    } catch (error) {
+      console.error('Failed to create plan:', error);
     }
-  }, [user, createPlan, clearAnalysis]);
+  }, [user, createPlanMutation, clearAnalysis]);
 
   return (
     <div className="min-h-screen bg-gray-50">
