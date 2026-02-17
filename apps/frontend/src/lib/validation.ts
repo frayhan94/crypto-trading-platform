@@ -8,7 +8,6 @@ export const tradingFormSchema = z.object({
   riskPercentage: z.number().min(0.1, 'Risk percentage must be at least 0.1%').max(100, 'Risk percentage cannot exceed 100%'),
   leverage: z.number().min(1, 'Leverage must be at least 1x').max(125, 'Leverage cannot exceed 125x'),
   positionType: z.enum(['long', 'short']),
-  balance: z.number().min(0.01, 'Balance must be greater than 0'),
 }).refine((data) => {
   // Validate logical relationships based on position type
   if (data.positionType === 'long') {
