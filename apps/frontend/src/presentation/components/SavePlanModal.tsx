@@ -101,7 +101,7 @@ export default function SavePlanModal({
           </svg>
         </button>
 
-        <h2 className="text-2xl font-black tracking-tight mb-6">SAVE AS TRADING PLAN</h2>
+        <h2 className="text-2xl text-gray-500 tracking-tight mb-6">SAVE AS TRADING PLAN</h2>
 
         <form onSubmit={handleSave} className="space-y-4">
           {error && (

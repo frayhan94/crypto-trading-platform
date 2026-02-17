@@ -63,7 +63,7 @@ function RegisterForm() {
       <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center">
           <div className="bg-green-50 border border-green-200 p-8">
-            <h2 className="text-2xl font-black tracking-tight mb-4">CHECK YOUR EMAIL</h2>
+            <h2 className="text-2xl text-gray-500 tracking-tight mb-4">CHECK YOUR EMAIL</h2>
             <p className="text-gray-600 font-light">
               We&apos;ve sent a confirmation link to <strong>{email}</strong>. 
               Please check your inbox and click the link to verify your account.
@@ -81,7 +81,7 @@ function RegisterForm() {
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black tracking-tight mb-2">CREATE ACCOUNT</h1>
+          <h1 className="text-4xl text-gray-500 tracking-tight mb-2">CREATE ACCOUNT</h1>
           <p className="text-gray-500 font-light">Start your trading journey</p>
         </div>
 

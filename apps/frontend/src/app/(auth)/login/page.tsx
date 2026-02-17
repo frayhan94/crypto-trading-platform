@@ -49,7 +49,7 @@ function LoginForm() {
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black tracking-tight mb-2">SIGN IN</h1>
+          <h1 className="text-4xl text-gray-500 tracking-tight mb-2">SIGN IN</h1>
           <p className="text-gray-500 font-light">Access your trading dashboard</p>
         </div>
 
