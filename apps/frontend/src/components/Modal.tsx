@@ -50,7 +50,7 @@ export default function Modal({ isOpen, onClose, title, message, type = 'error' 
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-white bg-opacity-80 backdrop-blur-sm"
+        className="absolute inset-0 bg-transparent bg-opacity-80 backdrop-blur-sm"
         onClick={onClose}
       />
       
