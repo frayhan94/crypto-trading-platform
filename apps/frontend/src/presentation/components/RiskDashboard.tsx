@@ -46,6 +46,10 @@ export default function RiskDashboard({ analysis }: RiskDashboardProps) {
             <div className="text-lg font-semibold text-gray-500">{RiskCalculation.formatCurrency(calculations.marginRequired)}</div>
           </div>
           <div className="bg-gray-50 p-4">
+            <div className="text-sm text-gray-600">Order Value</div>
+            <div className="text-lg font-semibold text-gray-500">{RiskCalculation.formatCurrency(calculations.orderValue)}</div>
+          </div>
+          <div className="bg-gray-50 p-4">
             <div className="text-sm text-gray-600">Liquidation Price</div>
             <div className="text-lg font-semibold text-gray-500">{RiskCalculation.formatCurrency(calculations.liquidationPrice)}</div>
           </div>
