@@ -272,7 +272,7 @@ export default function TradingPlansPage() {
                     <button
                       onClick={() => handleDelete(plan.id)}
                       disabled={updatingPlanId === plan.id}
-                      className="flex-1 border-2 border-black px-3 py-2 font-black tracking-wide hover:bg-black hover:text-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 border-2 border-black px-3 py-2 font-black tracking-wide hover:bg-black hover:text-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-black"
                     >
                       DELETE
                     </button>
