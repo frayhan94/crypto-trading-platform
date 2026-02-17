@@ -12,9 +12,10 @@ const app = new Hono().basePath('/api');
 app.use('*', logger());
 app.use('*', prettyJSON());
 app.use('*', cors({
-  origin: '*',
+  origin: ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001', 'https://crypto-trading-platform-ten.vercel.app'],
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 }));
 
 // Health routes
