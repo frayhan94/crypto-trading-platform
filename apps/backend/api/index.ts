@@ -18,7 +18,7 @@ app.use('*', cors({
   credentials: true,
 }));
 
-// Health routes
+// Health routes (legacy /api/health)
 app.get('/health', (c) => {
   return c.json({
     status: 'healthy',
@@ -27,6 +27,21 @@ app.get('/health', (c) => {
 });
 
 app.get('/health/ready', (c) => {
+  return c.json({
+    ready: true,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// V1 Health routes (/api/v1/health)
+app.get('/v1/health', (c) => {
+  return c.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.get('/v1/health/ready', (c) => {
   return c.json({
     ready: true,
     timestamp: new Date().toISOString(),
@@ -209,6 +224,7 @@ app.get('/', (c) => {
     status: 'running',
     endpoints: {
       health: '/api/health',
+      'v1-health': '/api/v1/health',
       risk: '/api/risk',
     }
   });
