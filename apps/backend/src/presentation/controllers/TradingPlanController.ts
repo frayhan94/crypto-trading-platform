@@ -23,7 +23,7 @@ export class TradingPlanController {
   getRoutes() {
     const routes = new Hono();
 
-    // Apply auth middleware to all routes
+    // Apply auth middleware to all routeseaa
     routes.use('*', authMiddleware);
 
     const createPlanSchema = z.object({
